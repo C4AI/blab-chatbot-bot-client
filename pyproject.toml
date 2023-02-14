@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "blab-chatbot-bot-client"
+version = "0.1.0"
+description = ""
+authors = ["C4AI"]
+readme = "README.md"
+packages = [{ include = "blab_chatbot_bot_client" }]
+
+[tool.poetry.dependencies]
+python = "^3.8,>=3.8.1"
+overrides = "^7.3.1"
+flask = { version = "^2.2.2", optional = true }
+websocket-client = { version = "^1.5.1", optional = true }
+waitress = { version = "^2.1.2", optional = true }
+colorama = "^0.4.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^6.0.0"
+flake8-annotations = "^3.0.0"
+flake8-docstrings = "^1.7.0"
+flake8-bugbear = "^23.2.13"
+pyupgrade = "^3.3.1"
+mypy = "^1.0.0"
+pre-commit = "^3.0.4"
+black = "^23.1.0"
+
+[tool.poetry.extras]
+ws = ["flask", "websocket-client", "waitress"]
