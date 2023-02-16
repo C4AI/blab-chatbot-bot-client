@@ -6,6 +6,7 @@ from blab_chatbot_bot_client.data_structures import OutgoingMessage, Message
 from blab_chatbot_bot_client.settings_format import BlabBotClientSettings
 
 
+# noinspection PyMethodMayBeStatic
 class BotClientConversation:
     def __init__(
         self,
@@ -29,6 +30,9 @@ class BotClientConversation:
 
     def on_receive_state(self, event: dict[str, Any]) -> None:
         pass
+
+    def generate_answer(self, message: Message) -> list[OutgoingMessage]:
+        return []
 
     @classmethod
     def generate_local_id(cls) -> str:

@@ -9,5 +9,5 @@ from sys import path
 MODULE = "blab_chatbot_bot_client"
 
 src_dir = Path(__file__).parent.resolve() / "src"
-path.append(str(src_dir))
+path.insert(0, str(src_dir))
 run_path(str(src_dir / MODULE))
