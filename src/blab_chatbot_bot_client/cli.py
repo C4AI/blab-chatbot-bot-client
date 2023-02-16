@@ -113,10 +113,10 @@ class BlabBotClientArgParser:
     def _display_message_on_terminal(
         self, message: Message | OutgoingMessage | str
     ) -> None:
-        from colorama import Style
+        from colorama import Style, Fore
 
         if isinstance(message, (Message, OutgoingMessage)):
             text = message.text
         else:
             text = str(message)
-        print(f"{Style.RESET_ALL}{text}")
+        print(f"{Style.RESET_ALL}{Fore.YELLOW}{text}{Style.RESET_ALL}")
