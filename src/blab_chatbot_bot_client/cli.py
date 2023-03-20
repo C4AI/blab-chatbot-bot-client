@@ -1,8 +1,10 @@
+from __future__ import annotations
+
 import argparse
 from datetime import datetime
 from importlib import util as import_util
 from pathlib import Path
-from typing import Type, Protocol
+from typing import Type
 
 from blab_chatbot_bot_client import make_path_absolute
 from blab_chatbot_bot_client.conversation import BotClientConversation
@@ -48,13 +50,13 @@ class BlabBotClientArgParser:
             raise ValueError("Invalid settings file")
         return settings
 
-    def parse_and_run(self, args: list[str] | None = None) -> bool:
-        args = self.arg_parser.parse_args(args)
-        settings = self._load_config(args.config)
-        if args.command == "startserver":
+    def parse_and_run(self, arguments: list[str] | None = None) -> bool:
+        arguments = self.arg_parser.parse_args(arguments)
+        settings = self._load_config(arguments.config)
+        if arguments.command == "startserver":
             if issubclass(self._client, WebSocketBotClientConversation):
                 self._client.start_http_server(settings)
-        elif args.command == "answer":
+        elif arguments.command == "answer":
             if issubclass(self._client, BotClientConversation):
                 self._start_console_chat(settings)
         else:
