@@ -29,6 +29,7 @@ class Message:
     sender_id: str | None = None
     additional_metadata: dict[str, Any] | None = None
     event: str | None = None
+    quoted_message_id: str | None = None
 
     def __post_init__(self):
         if isinstance(self.time, str):
@@ -47,10 +48,12 @@ class OutgoingMessage:
     local_id: str
     type: MessageType
     text: str | None = None
+    quoted_message_id: str | None = None
 
     def to_dict(self):
         return {
             "local_id": self.local_id,
             "type": self.type.value,
             "text": self.text,
+            "quoted_message_id": self.quoted_message_id,
         }
