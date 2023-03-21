@@ -53,6 +53,11 @@ class BlabBotClientArgParser:
     def parse_and_run(self, arguments: list[str] | None = None) -> bool:
         arguments = self.arg_parser.parse_args(arguments)
         settings = self._load_config(arguments.config)
+        return self.run(arguments, settings)
+
+    def run(
+        self, arguments: argparse.Namespace, settings: BlabBotClientSettings
+    ) -> bool:
         if arguments.command == "startserver":
             if issubclass(self._client, WebSocketBotClientConversation):
                 self._client.start_http_server(settings)
