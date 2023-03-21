@@ -63,7 +63,7 @@ class WebSocketBotClientConversation(BotClientConversation):
                     message = Message.from_dict(contents["message"])
                     conv.on_receive_message(message)
                 if "state" in contents:
-                    pass  # TO DO
+                    conv.on_receive_state(contents["state"])
 
             ws = WebSocketApp(
                 ws_url + "/ws/chat/" + conversation_id + "/",

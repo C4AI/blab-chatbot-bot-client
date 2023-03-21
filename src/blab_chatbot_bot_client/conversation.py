@@ -20,6 +20,7 @@ class BotClientConversation:
         self.conversation_id = conversation_id
         self.bot_participant_id = bot_participant_id
         self._outgoing_message_queue: Queue[OutgoingMessage] = Queue()
+        self.state = {}
 
     def enqueue_message(self, message: OutgoingMessage) -> None:
         self._outgoing_message_queue.put(message)
@@ -31,7 +32,7 @@ class BotClientConversation:
         pass
 
     def on_receive_state(self, event: dict[str, Any]) -> None:
-        pass
+        self.state.update(event)
 
     def generate_answer(self, message: Message) -> list[OutgoingMessage]:
         return []
