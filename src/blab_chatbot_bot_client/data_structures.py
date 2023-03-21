@@ -49,11 +49,16 @@ class OutgoingMessage:
     type: MessageType
     text: str | None = None
     quoted_message_id: str | None = None
+    command: str | None = None
 
     def to_dict(self):
-        return {
+        d = {
             "local_id": self.local_id,
             "type": self.type.value,
             "text": self.text,
-            "quoted_message_id": self.quoted_message_id,
         }
+        if self.quoted_message_id:
+            d["quoted_message_id"] = self.quoted_message_id
+        if self.command:
+            d["command"] = self.command
+        return d
