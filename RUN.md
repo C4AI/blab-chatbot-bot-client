@@ -1,6 +1,8 @@
 ### Execution instructions
 
-(In the following, replace *name_of_your_config_file.py* with the name of the file you created.)
+In the following, replace *name_of_your_config_file.py* with the name of the file you created.
+
+After following the installation instructions:
 
 - Optionally, run `poetry shell` to open a shell that uses the virtual environment, so that
   all the commands can be executed on that shell without prefixing them with `poetry run`.
