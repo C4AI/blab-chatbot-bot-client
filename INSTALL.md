@@ -2,9 +2,19 @@
 
 - Clone or download a repository that implements this library.
 
-- In the project root, create a configuration file (.py) following the template provided by the repository.
-  Modify it as needed, following the instructions in the file. It must contain the variable `BLAB_CONNECTION_SETTINGS`
+- In the project root, create the configuration file (.py):
+  make a local copy (with a different name) of the template file provided by the repository and
+  modify it as needed, following the instructions in the file. It must contain the
+  variable `BLAB_CONNECTION_SETTINGS`
   alongside the specific settings in other variable(s).
+
+  Note:
+  - Non-absolute paths will be relative to the root directory.
+  - In `BLAB_CONNECTION_SETTINGS`:
+    - `BOT_HTTP_SERVER_HOSTNAME` should be `127.0.0.1` to accept only local connections from the controller;
+    - `BOT_HTTP_SERVER_PORT` is arbitrary as long as it is available;
+    - `BLAB_CONTROLLER_WS_URL` is the controller address and must start with `ws://` or `wss://`
+      (the same path used by the frontend).
 
 - Install [Poetry](https://python-poetry.org/) ≥ 1.2:
 
@@ -20,30 +30,3 @@
   ```
 
 - Note that some programs may require additional steps. Check the corresponding documentation.
-
-### Execution instructions
-
-(In the following, replace *name_of_your_config_file.py* with the name of the file you created.)
-
-- To open an interactive demo that answers questions on the terminal, run:
-
-  ```shell
-  poetry run ./run.py --config name_of_your_config_file.py answer
-  ```
-
-- Open your [BLAB Controller](../../../blab-controller) settings file (`dev.py` or `prod.py`) and update
-  the `CHAT_INSTALLED_BOTS` dictionary to include the Example Bot settings:
-
-  ```python
-  CHAT_INSTALLED_BOTS.update({
-      "Name of the bot": websocket_external_bot(url="http://localhost:25220"),
-  })
-  ```
-
-Change the name and the port accordingly.
-
-- To start the server that will interact with BLAB Controller, run:
-
-  ```shell
-  poetry run ./run.py --config name_of_your_config_file.py startserver
-  ```
