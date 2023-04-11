@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from logging import getLogger
 from queue import Queue
 from threading import Thread
 from typing import Any, cast
@@ -73,6 +74,8 @@ class WebSocketBotClientConversation(BotClientConversation):
             )
             Thread(target=ws.run_forever).start()
             return ""
+
+        getLogger("waitress").setLevel("INFO")
 
         serve(
             app,
