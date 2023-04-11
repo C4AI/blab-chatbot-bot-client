@@ -5,4 +5,5 @@ This repository contains a Python library that implements the bidirectional comm
 external bots with the controller.
 
 The files [INSTALL.md](INSTALL.md) and [RUN.md](RUN.md)
-contains instructions on how to install and execute programs that use this library.
+contain instructions on how to install and execute programs that use this library.
+Note that each program may have additional requirements.
