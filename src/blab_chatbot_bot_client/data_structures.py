@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass, fields, field
 from datetime import datetime
 from enum import Enum
 from operator import attrgetter
@@ -50,6 +50,7 @@ class OutgoingMessage:
     text: str | None = None
     quoted_message_id: str | None = None
     command: str | None = None
+    options: list[str] = field(default_factory=list)
 
     def to_dict(self):
         d = {
@@ -57,6 +58,8 @@ class OutgoingMessage:
             "type": self.type.value,
             "text": self.text,
         }
+        if self.options:
+            d["options"] = self.options
         if self.quoted_message_id:
             d["quoted_message_id"] = self.quoted_message_id
         if self.command:
