@@ -10,7 +10,7 @@ packages = [{ include = "blab_chatbot_bot_client", from = "src" }]
 python = "^3.8,>=3.8.1"
 overrides = "^7.3.1"
 flask = { version = "^2.2.2", optional = true }
-websocket-client = { version = "^1.5.1", optional = true }
+websocket-client = { version = "^1.1", optional = true }
 waitress = { version = "^2.1.2", optional = true }
 colorama = "^0.4.6"
 
