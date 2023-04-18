@@ -68,6 +68,11 @@ class BlabBotClientArgParser:
             return False
         return True
 
+    def get_user_message(self, nth: int) -> str:
+        if nth == 1 and self._client.bot_sends_first_message:
+            return ""
+        return input()
+
     def _start_console_chat(self, settings: BlabBotClientSettings) -> None:
 
         from colorama import init as init_colorama
@@ -81,29 +86,31 @@ class BlabBotClientArgParser:
         you_display = "YOU"
         bot_display = "BOT"
         while True:
-            try:
-                if interactive:
-                    self._display_prompt_on_terminal(you_display)
-                question = input()
+            if n == 1 and self._client.bot_sends_first_message():
+                bot_messages = bot.generate_greeting()
+            else:
+                try:
+                    if interactive:
+                        self._display_prompt_on_terminal(you_display)
+                    question = input()
 
-                if not interactive:
-                    self._display_prompt_on_terminal(you_display)
-                    self._display_message_on_terminal(question)
-            except (EOFError, KeyboardInterrupt) as e:
-                question = ""
-            if not question:
-                break
-            user_message = Message(
-                type=MessageType.TEXT,
-                text=question,
-                sent_by_human=True,
-                sender_id="part1",
-                time=datetime.now(),
-                id=f"m{n}",
-                local_id=f"user_m{n}",
-            )
+                    if not interactive:
+                        self._display_prompt_on_terminal(you_display)
+                        self._display_message_on_terminal(question)
+                except (EOFError, KeyboardInterrupt) as e:
+                    break
+                user_message = Message(
+                    type=MessageType.TEXT,
+                    text=question,
+                    sent_by_human=True,
+                    sender_id="part1",
+                    time=datetime.now(),
+                    id=f"m{n}",
+                    local_id=f"user_m{n}",
+                )
+                bot_messages = bot.generate_answer(user_message)
             n += 1
-            for a in bot.generate_answer(user_message) or []:
+            for a in bot_messages or []:
                 self._display_prompt_on_terminal(bot_display)
                 self._display_message_on_terminal(a)
                 n += 1
@@ -124,6 +131,10 @@ class BlabBotClientArgParser:
 
         if isinstance(message, (Message, OutgoingMessage)):
             text = message.text
+            options = message.options or []
         else:
             text = str(message)
+            options = ""
         print(f"{Style.RESET_ALL}{Fore.YELLOW}{text}{Style.RESET_ALL}")
+        for option in options:
+            print(f"        - {Style.RESET_ALL}{Fore.CYAN}{option}{Style.RESET_ALL}")
