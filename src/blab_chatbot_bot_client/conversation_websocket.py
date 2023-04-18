@@ -1,30 +1,44 @@
+"""Contains a class that connects with BLAB Controller via WebSocket.
+
+Bots should implement subclasses of WebSocketBotClientConversation.
+"""
+
 from __future__ import annotations
 
 import json
 from logging import getLogger
 from queue import Queue
 from threading import Thread
-from typing import Any, cast
+from typing import Any, TypeVar, cast
 
 from blab_chatbot_bot_client.conversation import BotClientConversation
-from blab_chatbot_bot_client.data_structures import OutgoingMessage, Message
+from blab_chatbot_bot_client.data_structures import Message, OutgoingMessage
 from blab_chatbot_bot_client.settings_format import (
-    BlabBotClientSettings,
+    BlabWebSocketBotClientSettings,
     BlabWebSocketConnectionSettings,
 )
 
+SettingsType = TypeVar("SettingsType", bound=BlabWebSocketBotClientSettings)
 
-class WebSocketBotClientConversation(BotClientConversation):
+
+class WebSocketBotClientConversation(BotClientConversation[SettingsType]):
+    """Represents a conversation on the client, using WebSocket."""
+
     def __init__(self, *args: Any, **kwargs: Any):
+        """Create an instance. Arguments are forwarded to the parent class."""
         super().__init__(*args, **kwargs)
         self._outgoing_message_queue: Queue[OutgoingMessage] = Queue()
 
-    _instances: dict[str, WebSocketBotClientConversation] = {}
+    _instances: dict[str, WebSocketBotClientConversation[SettingsType]] = {}
 
     # noinspection PyPackageRequirements
     @classmethod
-    def start_http_server(cls, settings: BlabBotClientSettings):
+    def start_http_server(cls, settings: SettingsType) -> None:
+        """Start an HTTP server, called when there is a new conversation.
 
+        Args:
+            settings: the bot settings
+        """
         from flask import Flask, request
         from waitress import serve
         from websocket import WebSocketApp
@@ -37,17 +51,26 @@ class WebSocketBotClientConversation(BotClientConversation):
 
         @app.route("/", methods=["POST"])
         def conversation_start() -> str:
+            """Handle the start of a new conversation."""
+            if not isinstance(request.json, dict):
+                return ""
             conversation_id = request.json["conversation_id"]
             bot_participant_id = request.json["bot_participant_id"]
             conversation = cls(settings, conversation_id, bot_participant_id)
 
             def on_open(
                 ws_app: WebSocketApp,
-                conv: WebSocketBotClientConversation = conversation,
+                conv: WebSocketBotClientConversation[SettingsType] = conversation,
             ) -> None:
+                """Handle the successful WebSocket connection.
+
+                Args:
+                    ws_app: the WebSocket app
+                    conv: instance of the conversation client
+                """
                 conv.on_connect()
 
-                def _process_outgoing_messages():
+                def _process_outgoing_messages() -> None:
                     while True:
                         message = conv._outgoing_message_queue.get()
                         ws_app.send(json.dumps(message.to_dict()))
@@ -57,8 +80,15 @@ class WebSocketBotClientConversation(BotClientConversation):
             def on_message(
                 ws_app: WebSocketApp,
                 m: str,
-                conv: WebSocketBotClientConversation = conversation,
+                conv: WebSocketBotClientConversation[SettingsType] = conversation,
             ) -> None:
+                """Handle a new incoming message.
+
+                Args:
+                    ws_app: the WebSocket app
+                    m: the raw message data
+                    conv: instance of the conversation client
+                """
                 contents = json.loads(m)
                 if "message" in contents:
                     message = Message.from_dict(contents["message"])

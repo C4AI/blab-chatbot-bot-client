@@ -395,6 +395,14 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "types-waitress"
+version = "2.1.4.7"
+description = "Typing stubs for waitress"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "typing-extensions"
 version = "4.5.0"
 description = "Backported and Experimental Type Hints for Python 3.7+"
@@ -476,7 +484,7 @@ ws = ["flask", "websocket-client", "waitress"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8,>=3.8.1"
-content-hash = "a8be0f5a03867af8a2e3768b9af2b24d8543b11831daef47d0461d67f790cce7"
+content-hash = "ffdf853dae1df961b4fee60fc5d50e8fe8d21b2e323af0d0901c2ea910076adc"
 
 [metadata.files]
 attrs = [
@@ -751,6 +759,10 @@ tokenize-rt = [
 tomli = [
     {file = "tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},
     {file = "tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
+]
+types-waitress = [
+    {file = "types-waitress-2.1.4.7.tar.gz", hash = "sha256:0363d635397bb33adb851b5b866b8815f9bf0c0080dadd95b51679fce1a39831"},
+    {file = "types_waitress-2.1.4.7-py3-none-any.whl", hash = "sha256:30869c7d52ed496e0689110d7c6b85ad6a7f54032e826ef097c5cbe5e5487612"},
 ]
 typing-extensions = [
     {file = "typing_extensions-4.5.0-py3-none-any.whl", hash = "sha256:fb33085c39dd998ac16d1431ebc293a8b3eedd00fd4a32de0ff79002c19511b4"},
