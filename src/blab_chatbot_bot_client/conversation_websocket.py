@@ -9,7 +9,7 @@ import json
 from logging import getLogger
 from queue import Queue
 from threading import Thread
-from typing import Any, TypeVar, cast
+from typing import Any, TypeVar, cast, Generic
 
 from blab_chatbot_bot_client.conversation import BotClientConversation
 from blab_chatbot_bot_client.data_structures import Message, OutgoingMessage
@@ -21,7 +21,9 @@ from blab_chatbot_bot_client.settings_format import (
 SettingsType = TypeVar("SettingsType", bound=BlabWebSocketBotClientSettings)
 
 
-class WebSocketBotClientConversation(BotClientConversation[SettingsType]):
+class WebSocketBotClientConversation(
+    BotClientConversation[SettingsType], Generic[SettingsType]
+):
     """Represents a conversation on the client, using WebSocket."""
 
     def __init__(self, *args: Any, **kwargs: Any):
