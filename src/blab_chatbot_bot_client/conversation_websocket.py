@@ -9,7 +9,7 @@ import json
 from logging import getLogger
 from queue import Queue
 from threading import Thread
-from typing import Any, TypeVar, cast, Generic
+from typing import Any, Generic, TypeVar, cast
 
 from blab_chatbot_bot_client.conversation import BotClientConversation
 from blab_chatbot_bot_client.data_structures import Message, OutgoingMessage
