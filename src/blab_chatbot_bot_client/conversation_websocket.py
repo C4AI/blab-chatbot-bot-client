@@ -39,6 +39,7 @@ class WebSocketBotClientConversation(
         """Start an HTTP server, called when there is a new conversation.
 
         Args:
+        ----
             settings: the bot settings
         """
         from flask import Flask, request
@@ -67,6 +68,7 @@ class WebSocketBotClientConversation(
                 """Handle the successful WebSocket connection.
 
                 Args:
+                ----
                     ws_app: the WebSocket app
                     conv: instance of the conversation client
                 """
@@ -80,13 +82,14 @@ class WebSocketBotClientConversation(
                 Thread(target=_process_outgoing_messages).start()
 
             def on_message(
-                ws_app: WebSocketApp,
+                _ws_app: WebSocketApp,
                 m: str,
                 conv: WebSocketBotClientConversation[SettingsType] = conversation,
             ) -> None:
                 """Handle a new incoming message.
 
                 Args:
+                ----
                     ws_app: the WebSocket app
                     m: the raw message data
                     conv: instance of the conversation client

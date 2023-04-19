@@ -85,9 +85,11 @@ class Message:
         Unknown or unsupported fields are ignored.
 
         Args:
+        ----
             d: dictionary with the message data
 
         Returns:
+        -------
             an instance with the provided data
         """
         supported_fields = set(map(attrgetter("name"), fields(cls)))
@@ -119,7 +121,8 @@ class OutgoingMessage:
     def to_dict(self) -> dict[str, Any]:
         """Generate a dict with the data in this message.
 
-        Returns:
+        Returns
+        -------
             a dict with the values in this instance
         """
         d: dict[str, str | list[str] | None] = {

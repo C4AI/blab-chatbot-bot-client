@@ -25,6 +25,7 @@ def _is_interactive() -> bool:
     """Detect if this is an interactive terminal session.
 
     Return:
+    ------
         `True` if the terminal session is iterative, `False` otherwise
     """
     from os import fstat
@@ -43,6 +44,7 @@ class BlabBotClientArgParser:
         """Create an instance of the parser.
 
         Args:
+        ----
             client: the conversation instance on the client
         """
         self._client = client
@@ -57,27 +59,33 @@ class BlabBotClientArgParser:
         """Load a configuration file. It must be a .py file.
 
         Args:
+        ----
             path: path to the configuration file
         """
         if not path.lower().endswith(".py"):
-            raise ValueError("The config file must end with .py")
+            error = "The config file must end with .py"
+            raise ValueError(error)
         cfg_path = make_path_absolute(path)
         spec = import_util.spec_from_file_location(Path(cfg_path).name[:-3], cfg_path)
-        assert spec
-        assert spec.loader
+        if not spec or not spec.loader:
+            error = "Could not load settings file"
+            raise ValueError(error)
         settings = import_util.module_from_spec(spec)
         spec.loader.exec_module(settings)
         if not isinstance(settings, BlabBotClientSettings):
-            raise ValueError("Invalid settings file")
+            error = "Invalid settings file"
+            raise ValueError(error)
         return settings
 
     def parse_and_run(self, arguments: list[str] | None = None) -> bool:
         """Parse the command-line arguments and run the specified command.
 
         Args:
+        ----
             arguments: the raw command-line arguments
 
         Returns:
+        -------
             whether the execution was successful
         """
         args = self.arg_parser.parse_args(arguments)
@@ -90,6 +98,7 @@ class BlabBotClientArgParser:
         """Execute the specified action.
 
         Args:
+        ----
             arguments: the parsed command-line arguments
             settings: the loaded configuration
         """
@@ -110,9 +119,11 @@ class BlabBotClientArgParser:
         expected to initiate the conversation.
 
         Args:
+        ----
             nth: the sequential number of the message in the conversation
 
         Return:
+        ------
             the message typed by the user, or an empty string if
             nothing should be read
         """
@@ -171,11 +182,12 @@ class BlabBotClientArgParser:
         )
 
     def _display_message_on_terminal(
-        self, message: Message | OutgoingMessage | str
+        self,
+        message: Message | OutgoingMessage | str,
     ) -> None:
         from colorama import Fore, Style
 
-        if isinstance(message, (Message, OutgoingMessage)):
+        if isinstance(message, Message | OutgoingMessage):
             text = message.text
             options = message.options or []
         else:
