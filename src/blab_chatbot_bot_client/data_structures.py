@@ -139,7 +139,15 @@ class OutgoingMessage:
             d["quoted_message_id"] = self.quoted_message_id
         if self.command:
             d["command"] = self.command
-        if self.type in {MessageType.IMAGE, MessageType.VIDEO, MessageType.AUDIO,
-                         MessageType.ATTACHMENT} and self.external_file_url:
+        if (
+            self.type
+            in {
+                MessageType.IMAGE,
+                MessageType.VIDEO,
+                MessageType.AUDIO,
+                MessageType.ATTACHMENT,
+            }
+            and self.external_file_url
+        ):
             d["external_file_url"] = self.external_file_url
         return d
