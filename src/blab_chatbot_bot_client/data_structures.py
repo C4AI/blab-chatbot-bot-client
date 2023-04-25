@@ -118,6 +118,9 @@ class OutgoingMessage:
     options: list[str] = field(default_factory=list)
     """List of options from which the user can choose, if any"""
 
+    external_file_url: str | None = None
+    """URL of the external file attached to the message"""
+
     def to_dict(self) -> dict[str, Any]:
         """Generate a dict with the data in this message.
 
@@ -136,4 +139,7 @@ class OutgoingMessage:
             d["quoted_message_id"] = self.quoted_message_id
         if self.command:
             d["command"] = self.command
+        if self.type in {MessageType.IMAGE, MessageType.VIDEO, MessageType.AUDIO,
+                         MessageType.ATTACHMENT} and self.external_file_url:
+            d["external_file_url"] = self.external_file_url
         return d
