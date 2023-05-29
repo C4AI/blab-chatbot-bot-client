@@ -1,2 +1,2 @@
-BLAB Chatbot Client for OpenAI --- API documentation
+BLAB Chatbot Bot Client --- API documentation
 ====================================================
