@@ -31,7 +31,6 @@ class BotClientConversation(Generic[SettingsType]):
         """Create an instance.
 
         Args:
-        ----
             settings: bot settings
             conversation_id: id of the conversation
             bot_participant_id: id of the participant correspondent to the bot
@@ -46,7 +45,6 @@ class BotClientConversation(Generic[SettingsType]):
         """Enqueue a message to be sent to the controller.
 
         Args:
-        ----
             message: the message to be sent
         """
         self._outgoing_message_queue.put(message)
@@ -66,7 +64,6 @@ class BotClientConversation(Generic[SettingsType]):
         are delivered.
 
         Args:
-        ----
             message: the incoming message
         """
 
@@ -76,7 +73,6 @@ class BotClientConversation(Generic[SettingsType]):
         This method updates the internal cached state.
 
         Args:
-        ----
             event: the event data
         """
         self.state.update(event)
@@ -88,11 +84,9 @@ class BotClientConversation(Generic[SettingsType]):
         Subclasses should implement the desired behaviour.
 
         Args:
-        ----
             message: the message which should be answered
 
         Returns:
-        -------
             a list with the answers
         """
         return []
@@ -104,7 +98,6 @@ class BotClientConversation(Generic[SettingsType]):
         Subclasses should implement the desired behaviour.
 
         Returns
-        -------
             a list with the greetings
         """
         return []
@@ -117,7 +110,6 @@ class BotClientConversation(Generic[SettingsType]):
         should override it if the bots can initiate a conversation.
 
         Returns
-        -------
             `true` if this bot sends a greeting message to the user
             before their first message
         """
@@ -133,8 +125,7 @@ class BotClientConversation(Generic[SettingsType]):
         It can also be used by bots to be notified when its own messages
         have been delivered.
 
-        Return:
-        ------
+        Returns
             the generated local id
         """
         return str(uuid4()).replace("-", "")

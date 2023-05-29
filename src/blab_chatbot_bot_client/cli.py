@@ -24,8 +24,7 @@ from blab_chatbot_bot_client.settings_format import BlabBotClientSettings
 def _is_interactive() -> bool:
     """Detect if this is an interactive terminal session.
 
-    Return:
-    ------
+    Returns
         `True` if the terminal session is iterative, `False` otherwise
     """
     from os import fstat
@@ -44,7 +43,6 @@ class BlabBotClientArgParser:
         """Create an instance of the parser.
 
         Args:
-        ----
             client: the conversation instance on the client
         """
         self._client = client
@@ -59,7 +57,6 @@ class BlabBotClientArgParser:
         """Load a configuration file. It must be a .py file.
 
         Args:
-        ----
             path: path to the configuration file
         """
         if not path.lower().endswith(".py"):
@@ -81,11 +78,9 @@ class BlabBotClientArgParser:
         """Parse the command-line arguments and run the specified command.
 
         Args:
-        ----
             arguments: the raw command-line arguments
 
         Returns:
-        -------
             whether the execution was successful
         """
         args = self.arg_parser.parse_args(arguments)
@@ -98,7 +93,6 @@ class BlabBotClientArgParser:
         """Execute the specified action.
 
         Args:
-        ----
             arguments: the parsed command-line arguments
             settings: the loaded configuration
         """
@@ -119,11 +113,9 @@ class BlabBotClientArgParser:
         expected to initiate the conversation.
 
         Args:
-        ----
             nth: the sequential number of the message in the conversation
 
-        Return:
-        ------
+        Returns:
             the message typed by the user, or an empty string if
             nothing should be read
         """
