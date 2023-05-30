@@ -5,6 +5,8 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+import subprocess
+
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
@@ -13,7 +15,9 @@ project = "BLAB Chatbot Bot Client"
 # noinspection PyShadowingBuiltins
 copyright = "2023, C4AI"
 author = "C4AI"
-release = "1.0.0"
+release = subprocess.run(
+    ["git", "describe", "--tags"], capture_output=True
+).stdout.decode("utf-8")
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

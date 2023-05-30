@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "blab-chatbot-bot-client"
 version = "1.0.0"
-description = ""
+description = "A Python client that implements the integration of external bots with BLAB Controller."
 authors = ["C4AI"]
 readme = "README.md"
 packages = [{ include = "blab_chatbot_bot_client", from = "src" }]
