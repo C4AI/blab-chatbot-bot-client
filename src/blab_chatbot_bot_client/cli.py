@@ -25,7 +25,7 @@ def _is_interactive() -> bool:
     """Detect if this is an interactive terminal session.
 
     Returns
-        `True` if the terminal session is iterative, `False` otherwise
+        ``True`` if the terminal session is iterative, ``False`` otherwise
     """
     from os import fstat
     from stat import S_ISFIFO, S_ISREG

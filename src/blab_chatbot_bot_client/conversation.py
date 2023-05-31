@@ -1,7 +1,7 @@
 """Contains a class that interacts with BLAB Controller.
 
 The actual behaviour is implemented in subclasses
-(such as `WebSocketBotClientConversation`).
+(such as ``WebSocketBotClientConversation``).
 """
 
 from __future__ import annotations
@@ -106,11 +106,11 @@ class BotClientConversation(Generic[SettingsType]):
     def bot_sends_first_message(cls) -> bool:
         """Whether the bot sends the first message.
 
-        This method returns `False` by default, but subclasses
+        This method returns ``False`` by default, but subclasses
         should override it if the bots can initiate a conversation.
 
         Returns
-            `true` if this bot sends a greeting message to the user
+            ``True`` if this bot sends a greeting message to the user
             before their first message
         """
         return False

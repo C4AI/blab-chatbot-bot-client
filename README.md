@@ -10,3 +10,7 @@ Note that each program may have additional requirements.
 
 Examples with trivial implementations can
 be found at [BLAB Chatbot Example](../../../blab-chatbot-example-python).
+
+Documentation for the code and its API is hosted
+[on GitHub Pages](https://c4ai.github.io/blab-chatbot-bot-client/)
+alongside instructions on how to generate it locally.

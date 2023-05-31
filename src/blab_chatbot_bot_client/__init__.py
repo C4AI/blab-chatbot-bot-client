@@ -9,7 +9,7 @@ def make_path_absolute(p: str) -> str:
         p: the input string, possibly a valid path
 
     Returns:
-        if `p` is the path to an existing file/directory relative to the project's
+        if ``p`` is the path to an existing file/directory relative to the project's
         root, then its absolute path is returned; otherwise, the function
         returns the same string it received
     """
